@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Репетитор по математике</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      color: #2f1f27;
+      background:
+        radial-gradient(circle at top left, #ffcfe0 0%, transparent 35%),
+        radial-gradient(circle at bottom right, #ffd9e8 0%, transparent 30%),
+        linear-gradient(180deg, #fff7fb 0%, #fff1f7 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .slider {
+      width: 100%;
+    }
+
+    .slide {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      position: relative;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 1100px;
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(14px);
+      border-radius: 36px;
+      box-shadow: 0 18px 50px rgba(255, 111, 163, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      padding: 48px;
+    }
+
+    .card--center {
+      text-align: center;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(255, 173, 203, 0.28);
+      color: #b84f7b;
+      font-weight: 700;
+      letter-spacing: 1px;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    h1, h2 {
+      font-size: clamp(34px, 5vw, 60px);
+      line-height: 1.1;
+      margin-bottom: 18px;
+      color: #3a2530;
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 1.7;
+      color: #5d4752;
+    }
+
+    .hero-layout {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .hero-info {
+      display: grid;
+      gap: 18px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      padding: 16px 26px;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: 0.25s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #ff7eb0, #ff9dc0);
+      color: white;
+      box-shadow: 0 12px 24px rgba(255, 126, 176, 0.28);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.85);
+      color: #b84f7b;
+      border: 1px solid rgba(255, 126, 176, 0.22);
+    }
+
+    .contact-box {
+      background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,240,246,0.9));
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: 0 10px 24px rgba(255, 111, 163, 0.12);
+      display: grid;
+      gap: 16px;
+    }
+
+    .contact-item {
+      font-size: 18px;
+      color: #4d3741;
+    }
+
+    .contact-item a {
+      color: #b84f7b;
+      text-decoration: none;
+    }
+
+    .about-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .about-card {
+      background: rgba(255,255,255,0.82);
+      border-radius: 28px;
+      padding: 30px;
+      box-shadow: 0 10px 24px rgba(255, 111, 163, 0.12);
+    }
+
+    .price-box {
+      width: 100%;
+      max-width: 560px;
+      margin: 28px auto 0;
+      display: grid;
+      gap: 16px;
+    }
+
+    .price-item {
+      background: rgba(255,255,255,0.92);
+      border-radius: 22px;
+      padding: 22px 24px;
+      box-shadow: 0 10px 24px rgba(255, 111, 163, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .price-item--free {
+      background: linear-gradient(135deg, rgba(255,111,163,0.14), rgba(255,160,192,0.22));
+      border: 1px solid rgba(255,111,163,0.18);
+    }
+
+    .price-label {
+      font-size: 18px;
+      color: #5d4752;
+    }
+
+    .price-value {
+	font-size: 22px;
+      font-weight: 700;
+      color: #2f1f27;
+    }.nav-dots {
+      position: fixed;
+      right: 22px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 10;
+    }
+
+    .nav-dots a {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: rgba(184, 79, 123, 0.25);
+      border: 2px solid rgba(184, 79, 123, 0.45);
+      transition: 0.2s ease;
+    }
+
+    .nav-dots a:hover {
+      transform: scale(1.2);
+      background: rgba(184, 79, 123, 0.55);
+    }
+
+    .slide-nav {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .slide-nav a {
+      text-decoration: none;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.78);
+      color: #b84f7b;
+      border: 1px solid rgba(255, 126, 176, 0.18);
+      font-weight: 700;
+    }
+
+    .arrows {
+      position: fixed;
+      left: 22px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 10;
+    }
+
+    .arrow-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,0.88);
+      color: #b84f7b;
+      font-size: 24px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(255, 111, 163, 0.14);
+    }
+
+    @media (max-width: 900px) {
+      .hero-layout,
+      .about-layout {
+        grid-template-columns: 1fr;
+      }
+      .card {
+        padding: 28px;
+      }
+      .nav-dots,
+      .arrows {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      h1, h2 {
+        font-size: 32px;
+      }
+
+      p {
+        font-size: 16px;
+      }
+
+      .price-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .slide {
+        padding: 22px 14px 80px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="nav-dots">
+    <a href="#slide1" aria-label="Слайд 1"></a>
+    <a href="#slide2" aria-label="Слайд 2"></a>
+    <a href="#slide3" aria-label="Слайд 3"></a>
+  </div>
+
+  <div class="arrows">
+    <button class="arrow-btn" onclick="prevSlide()">‹</button>
+    <button class="arrow-btn" onclick="nextSlide()">›</button>
+  </div>
+
+<div class="slider">
+  <section class="slide slide-1" id="slide1">
+    <div class="card">
+      <div class="hero-layout">
+
+        <!-- ЛЕВАЯ КОЛОНКА: текст -->
+        <div class="hero-info">
+          <div class="tag">ОНЛАЙН</div>
+          <h1>Репетитор по математике для 9 классов, ОГЭ</h1>
+          <p>
+            Подготовка к экзамену в понятной и спокойной форме. Помогу разобрать темы,
+            закрыть пробелы и уверенно подготовиться к ОГЭ.
+          </p>
+          <div class="buttons">
+            <a class="btn btn-primary" href="https://t.me/whathzz" target="_blank">Запись на первое занятие</a>
+            <a class="btn btn-secondary" href="mailto:musinaarina2008@gmail.com">Написать на почту</a>
+          </div>
+        </div>
+
+        <!-- ПРАВАЯ КОЛОНКА: фото + контакты -->
+        <div class="contact-box">
+          <div style="text-align: center;">
+            <img src="моя фотка.jpg" alt="Моё фото"
+                 style="width: 220px; height: 220px; border-radius: 50%; object-fit: cover; box-shadow: 0 10px 24px rgba(255, 111, 163, 0.25);">
+          </div>
+          <div class="contact-item">Телефон: <a href="tel:+79677301260">+7 967 730-12-60</a></div>
+          <div class="contact-item">Email: <a href="mailto:musinaarina2008@gmail.com">musinaarina2008@gmail.com</a></div>
+          <div class="contact-item">Telegram: <a href="https://t.me/whathzz" target="_blank">@whathzz</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-nav">
+      <a href="#slide2">Следующий слайд</a>
+    </div>
+  </section>
+
+    <section class="slide slide-2" id="slide2">
+      <div class="card">
+        <div class="about-layout">
+          <div class="about-card">
+            <div class="tag">ОБО МНЕ</div>
+            <h2>Немного о себе</h2>
+            <p>
+              Я сдала ЕГЭ по математике на <strong>90 баллов</strong>, поэтому хорошо знаю, 
+              как устроены экзамены и какие ошибки чаще всего допускают ученики. 
+              Сейчас я готовлю школьников именно к <strong>ОГЭ по математике</strong> — 
+              помогаю разобрать все темы, закрыть пробелы и уверенно прийти к экзамену.
+            </p>
+            <p style="margin-top: 16px;">
+              Как репетитор с глубокими знаниями предмета, я не просто объясняю темы, 
+              а учу понимать математику. На занятиях использую современные интерактивные 
+              материалы: онлайн-доску, наглядные схемы и цифровые задания вместо скучных учебников.
+            </p>
+          </div>
+
+          <div class="about-card">
+            <div class="tag">ОБРАЗОВАНИЕ</div>
+            <h2>Где я учусь</h2>
+            <p>
+              Сейчас я учусь на первом курсе в <strong>Казанском государственном 
+              энергетическом университете</strong>, на направлении 
+              <strong>«Информатика и вычислительная техника»</strong>.
+            </p>
+            <p style="margin-top: 16px;">
+              Составляю программу под каждого ученика: разбираем именно те задания ОГЭ, 
+              которые вызывают сложности. На занятиях нет давления и страха ошибиться — 
+              можно спокойно задавать любые вопросы. Всегда на связи в мессенджерах 
+              между уроками.
+            </p>
+            <p style="margin-top: 16px;">
+              <strong>Первое занятие — бесплатное.</strong> Познакомимся, определим уровень 
+              и составим план подготовки к ОГЭ.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-nav">
+        <a href="#slide1">Назад</a>
+        <a href="#slide3">Следующий слайд</a>
+      </div>
+    </section>
+        <section class="slide slide-3" id="slide3">
+      <div class="card card--center">
+        <div class="tag">УСЛОВИЯ</div>
+        <h2>Стоимость обучения</h2>
+
+        <div class="price-box">
+          <div class="price-item">
+            <span class="price-label">Индивидуальные занятия</span>
+            <span class="price-value">700 ₽ / час</span>
+          </div>
+
+          <div class="price-item price-item--free">
+            <span class="price-label">Первое занятие</span>
+            <span class="price-value">Бесплатно</span>
+          </div>
+        </div>
+
+        <div style="max-width: 700px; margin: 32px auto 0; background: rgba(255,255,255,0.82); border-radius: 28px; padding: 28px; box-shadow: 0 10px 24px rgba(255, 111, 163, 0.12); text-align: left;">
+          <div class="tag" style="margin-bottom: 16px;">РАСПИСАНИЕ</div>
+          <p>
+            Занятия провожу <strong>после 19:00 по московскому времени</strong>. 
+            Если это время вам не подходит — есть возможность изменить время 
+            в зависимости от дня недели. Главное — <strong>предупредить заранее</strong>.
+          </p>
+          <p style="margin-top: 16px;">
+            Подберём удобное время, которое устроит нас обоих.
+          </p>
+        </div>
+      </div>
+
+      <div class="slide-nav">
+        <a href="#slide2">Назад</a>
+        <a href="#slide1">В начало</a>
+      </div>
+    </section>
